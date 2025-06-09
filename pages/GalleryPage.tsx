@@ -100,7 +100,7 @@ const GalleryPage: React.FC = () => {
 
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context(() => { // GSAP Context for GalleryPage
       if (heroRef.current) {
         ScrollTrigger.create({
           trigger: heroRef.current,
@@ -109,6 +109,7 @@ const GalleryPage: React.FC = () => {
           pinSpacing: false,
         });
       }
+      // Note: GalleryItem components handle their own ScrollTrigger animations within their own context.
     }, pageRef);
     return () => ctx.revert();
   }, []); 
@@ -152,9 +153,16 @@ const GalleryPage: React.FC = () => {
 
         {filteredImages.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-0"> 
-            {filteredImages.map((image, index) => (
-              <GalleryItem key={image.id} image={image} onImageClick={() => handleImageClick(image, index)} index={index} />
-            ))}
+            {filteredImages.map((image, index) => {
+              // Modify src for thumbnail
+              const thumbnailSrc = image.src.includes('picsum.photos') 
+                ? image.src.replace('/800/600', '/400/300') 
+                : image.src; // Assuming Unsplash URLs are already handled or don't need this specific replacement pattern here.
+              const thumbnailImage = { ...image, src: thumbnailSrc };
+              return (
+                <GalleryItem key={image.id} image={thumbnailImage} onImageClick={() => handleImageClick(image, index)} index={index} />
+              );
+            })}
           </div>
         ) : (
            <AnimatedHeading 
@@ -179,7 +187,7 @@ const GalleryPage: React.FC = () => {
             onClick={(e) => e.stopPropagation()} 
           >
             <img 
-                src={selectedImage.src.replace('/800/600', '/1600/1000')} 
+                src={selectedImage.src.replace('/800/600', '/1600/1000')} // Load larger image for modal
                 alt={selectedImage.alt} 
                 className="block object-contain max-w-full max-h-full shadow-2xl"
             />

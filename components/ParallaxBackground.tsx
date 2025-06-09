@@ -90,7 +90,7 @@ const ParallaxBackground = forwardRef<HTMLDivElement, ParallaxBackgroundProps>((
       />
       {overlay && <div className="absolute inset-0 bg-[#181a1b]/60" aria-hidden="true"></div>}
       <div
-        className={`relative z-10 flex flex-col h-full p-8 md:p-12 lg:p-16 ${contentClassName}`}
+        className={`relative z-10 flex flex-col p-8 md:p-12 lg:p-16 ${contentClassName}`} // Removed h-full
         style={{ minHeight }}
       >
         {React.Children.map(children, (child) => {

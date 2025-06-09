@@ -20,26 +20,27 @@ const App: React.FC = () => {
   useEffect(() => {
     // Refresh ScrollTrigger on location change AFTER new page content is rendered
     // and pinning logic has had a chance to run.
-    // A small delay can help ensure calculations are correct after route transitions.
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100); // Adjust delay if needed, or use a more robust solution for post-render refresh
+    }, 150); // Slightly increased delay for safety after context reverts
 
     return () => clearTimeout(timer);
   }, [location]);
 
-  // Kill all ScrollTriggers when App unmounts or on location change before new ones are created
-  // This helps prevent lingering triggers from previous pages.
+  // Cleanup GSAP animations and ScrollTriggers on location change
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {}, appRef); // Establish a context
+    // Create a context for all GSAP animations and ScrollTriggers within the App's main content area
+    const ctx = gsap.context(() => {
+      // Animations and ScrollTriggers created by child components (pages)
+      // will be automatically added to this context if they are created
+      // after this context is established and targeting elements within appRef.
+      // If pages create their own contexts, those will handle their own cleanup.
+    }, appRef); 
+
     return () => {
-      ctx.revert(); // This will kill all ScrollTriggers and animations created within this context
-      // We might need to be more selective if Navbar/Footer create STs outside page context
-      // For now, pages will create their STs, and this should clean them up.
-      // Let's refine if Navbar/Footer need their own independent contexts.
-      // For robust cleanup, ensure all STs are created within a context that's reverted.
-      ScrollTrigger.getAll().forEach(st => st.kill()); // A more aggressive cleanup
-      ScrollTrigger.refresh(); // Refresh after killing to reset scroll state
+      ctx.revert(); // Revert all GSAP animations and ScrollTriggers created within this context
+      // ScrollTrigger.refresh(); // Refresh ScrollTrigger's calculations after reverting
+      // Call refresh in the useEffect above with a slight delay to ensure DOM is settled.
     };
   }, [location]);
 

@@ -279,7 +279,7 @@ const GsapHorizontalLoopCarousel: React.FC<GsapHorizontalLoopCarouselProps> = ({
         paddingRight: 10,
         onChange: (slide: HTMLDivElement, index: number) => {
           if (activeSlide) {
-            gsap.to(activeSlide.querySelectorAll("h2, h5"), { overwrite: true, opacity: 0, ease: "power3.inOut" });
+            gsap.to(activeSlide.querySelectorAll("h2, p.project-category"), { overwrite: true, opacity: 0, ease: "power3.inOut" });
             gsap.to(activeSlide, { opacity: 0.3, ease: "power2.inOut" });
             activeSlide.classList.remove("active");
           }
@@ -292,8 +292,8 @@ const GsapHorizontalLoopCarousel: React.FC<GsapHorizontalLoopCarouselProps> = ({
               .to(navCounterRef.current, { duration: 0.2, opacity: 0, ease: "power1.in" }, 0)
               .set(navCounterRef.current, { innerText: `${index + 1}/${slidesArray.length}` }, 0.2)
               .to(navCounterRef.current, { duration: 0.4, opacity: 0.6, ease: "power1.inOut" }, 0.2)
-              .to(activeSlide.querySelectorAll("h2, h5"), { opacity: 1, ease: "power1.inOut" }, 0.3)
-              .fromTo(activeSlide.querySelectorAll("h2, h5"), { y: (i) => [40, 60][i] }, { duration: 1.5, y: 0, ease: "expo" }, 0.3)
+              .to(activeSlide.querySelectorAll("h2, p.project-category"), { opacity: 1, ease: "power1.inOut" }, 0.3)
+              .fromTo(activeSlide.querySelectorAll("h2, p.project-category"), { y: (i) => [40, 60][i] }, { duration: 1.5, y: 0, ease: "expo" }, 0.3)
               .progress(firstRun ? 1 : 0);
           }
         }
@@ -315,7 +315,7 @@ const GsapHorizontalLoopCarousel: React.FC<GsapHorizontalLoopCarouselProps> = ({
       });
 
       gsap.set(slidesArray, { opacity: (i) => (i === 0 ? 1 : 0.3) });
-      gsap.set(slidesArray[0]?.querySelectorAll("h2, h5"), { opacity: 1 });
+      gsap.set(slidesArray[0]?.querySelectorAll("h2, p.project-category"), { opacity: 1 });
 
       loop.toIndex(0, { duration: 0 });
       firstRun = false;
@@ -331,7 +331,7 @@ const GsapHorizontalLoopCarousel: React.FC<GsapHorizontalLoopCarouselProps> = ({
           <div key={project.id} className="carousel-slide">
             <img src={project.src} alt="" /> {/* Alt text is on h2 as per design */}
             <h2>{project.alt}</h2>
-            <h5>{project.category}</h5>
+            <p className="project-category">{project.category}</p> {/* Changed h5 to p */}
           </div>
         ))}
       </div>

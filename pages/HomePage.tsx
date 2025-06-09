@@ -16,21 +16,21 @@ const homeServices = [
     id: 'weddings',
     title: 'Enchanting Weddings',
     description: 'From fairytale ceremonies to lavish receptions, we orchestrate every detail of your special day with elegance and precision, creating memories that last a lifetime.',
-    image: 'https://picsum.photos/seed/luxewedding/800/600',
+    image: 'https://picsum.photos/seed/luxewedding/600/450', // Adjusted size
     longDescription: "Our comprehensive wedding planning services cover venue scouting, bespoke design and decor, world-class vendor management, guest journey curation, and flawless on-the-day execution. We embrace your vision and elevate it with our expertise."
   },
   {
     id: 'corporate',
     title: 'Impactful Corporate Events',
     description: 'We specialize in designing and executing sophisticated corporate events, including global conferences, high-profile product launches, prestigious award ceremonies, and executive galas.',
-    image: 'https://picsum.photos/seed/corpogala/800/600',
+    image: 'https://picsum.photos/seed/corpogala/600/450', // Adjusted size
     longDescription: "MIMEVENTS helps your brand make a definitive statement. We manage complex logistics, cutting-edge AV & technology, captivating entertainment, and seamless branding integration to deliver engaging and memorable corporate experiences."
   },
   {
     id: 'private',
     title: 'Exclusive Private Soirées',
     description: 'Celebrate life\'s milestones with uniquely designed private parties. From landmark birthdays and anniversaries to themed extravaganzas and exclusive gatherings, we craft personalized experiences that reflect your individual style.',
-    image: 'https://picsum.photos/seed/luxeparty/800/600',
+    image: 'https://picsum.photos/seed/luxeparty/600/450', // Adjusted size
     longDescription: "Our dedicated team excels in creating intimate and unforgettable private events. We handle every facet, from conceptualization and immersive design to gourmet catering and world-class entertainment, allowing you to indulge in your celebration."
   },
 ];
@@ -42,19 +42,19 @@ const homeTestimonials = [
 ];
 
 const homeProjects: GalleryImageItem[] = [
-  { id: 'hp1', src: 'https://images.unsplash.com/photo-1659733582156-d2a11801e59f?q=50&w=1600', alt: 'Royal Garden Wedding', category: 'Weddings' },
-  { id: 'hp2', src: 'https://images.unsplash.com/photo-1543362137-5df0547b039d?q=50&w=1600', alt: 'Innovate Summit 2023', category: 'Corporate' },
-  { id: 'hp3', src: 'https://images.unsplash.com/photo-1631142260228-305ccb610dba?q=50&w=1600', alt: 'Azure Villa Party', category: 'Private Parties' },
-  { id: 'hp4', src: 'https://images.unsplash.com/photo-1708022766976-49ca46c0f7de?q=50&w=1600', alt: 'Charity Gala Dinner', category: 'Corporate' },
-  { id: 'hp5', src: 'https://images.unsplash.com/photo-1631142260079-970258649676?q=50&w=1600', alt: 'Desert Mirage Festival', category: 'Special Events' },
-  { id: 'hp6', src: 'https://images.unsplash.com/photo-1708022809820-2668e65877b9?q=50&w=1600', alt: 'Vintage Vineyard Wedding', category: 'Weddings' },
-  { id: 'hp7', src: 'https://images.unsplash.com/photo-1708022796522-ff65b57439de?q=50&w=1600', alt: 'FutureTech Conference', category: 'Corporate' },
-  { id: 'hp8', src: 'https://images.unsplash.com/photo-1708022790103-a514cb89a034?q=50&w=1600', alt: 'Grand Masquerade Ball', category: 'Private Parties' },
+  { id: 'hp1', src: 'https://images.unsplash.com/photo-1659733582156-d2a11801e59f?q=50&w=800&fm=webp', alt: 'Royal Garden Wedding', category: 'Weddings' },
+  { id: 'hp2', src: 'https://images.unsplash.com/photo-1543362137-5df0547b039d?q=50&w=800&fm=webp', alt: 'Innovate Summit 2023', category: 'Corporate' },
+  { id: 'hp3', src: 'https://images.unsplash.com/photo-1631142260228-305ccb610dba?q=50&w=800&fm=webp', alt: 'Azure Villa Party', category: 'Private Parties' },
+  { id: 'hp4', src: 'https://images.unsplash.com/photo-1708022766976-49ca46c0f7de?q=50&w=800&fm=webp', alt: 'Charity Gala Dinner', category: 'Corporate' },
+  { id: 'hp5', src: 'https://images.unsplash.com/photo-1631142260079-970258649676?q=50&w=800&fm=webp', alt: 'Desert Mirage Festival', category: 'Special Events' },
+  { id: 'hp6', src: 'https://images.unsplash.com/photo-1708022809820-2668e65877b9?q=50&w=800&fm=webp', alt: 'Vintage Vineyard Wedding', category: 'Weddings' },
+  { id: 'hp7', src: 'https://images.unsplash.com/photo-1708022796522-ff65b57439de?q=50&w=800&fm=webp', alt: 'FutureTech Conference', category: 'Corporate' },
+  { id: 'hp8', src: 'https://images.unsplash.com/photo-1708022790103-a514cb89a034?q=50&w=800&fm=webp', alt: 'Grand Masquerade Ball', category: 'Private Parties' },
 ];
 
 
 const heroSliderImages = [
-  "https://picsum.photos/seed/mimhero1/1200/1500",
+  "https://picsum.photos/seed/mimhero1/1200/1500", // LCP candidate
   "https://picsum.photos/seed/mimhero2/1200/1500",
   "https://picsum.photos/seed/mimhero3/1200/1500",
   "https://picsum.photos/seed/mimhero4/1200/1500",
@@ -280,6 +280,9 @@ const HomePage: React.FC = () => {
               style={{ 
                 opacity: index === currentHeroImageIndex ? 1 : 0,
               }}
+              // @ts-ignore HACK: for experimental fetchPriority
+              fetchpriority={index === 0 ? "high" : "auto"}
+              loading={index === 0 ? "eager" : "lazy"}
             />
           ))}
         </div>

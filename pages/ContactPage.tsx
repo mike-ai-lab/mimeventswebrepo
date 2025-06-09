@@ -14,7 +14,7 @@ const ContactPage: React.FC = () => {
   const contactContentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context(() => { // GSAP Context for ContactPage
       const sectionsToPin = [
         heroRef.current,
         contactContentRef.current,
@@ -28,7 +28,7 @@ const ContactPage: React.FC = () => {
           pinSpacing: false,
         });
       });
-    }, pageRef);
+    }, pageRef); // scope context to pageRef
     return () => ctx.revert();
   }, []);
 

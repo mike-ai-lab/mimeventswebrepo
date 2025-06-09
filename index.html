@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A luxurious website for MIMEVENTS, an event planning company in Lebanon, showcasing their services, gallery, and contact information with advanced animations and parallax effects.">
   <title>MIMEVENTS - Premier Event Planning in Lebanon</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -124,7 +125,7 @@
       opacity: 0; 
     }
     
-    .carousel-slide h5 {
+    .carousel-slide p.project-category { /* Updated from h5 to p */
       position: relative;
       margin: 0.5rem 0 0 0; 
       font-family: 'Inter', sans-serif; 
@@ -133,6 +134,7 @@
       letter-spacing: 0.3px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.4); 
       opacity: 0; 
+      color: #a3a3a4; /* Example styling for paragraph */
     }
     
     .carousel-nav {
@@ -202,7 +204,13 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton+SC:wght@400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Gambetta:ital,wght@0,400;1,400&family=Roboto:wght@100;300;400;600&display=swap" rel="stylesheet"> 
+  
+  <link rel="preload" as="image" href="https://picsum.photos/seed/mimhero1/1200/1500" fetchpriority="high">
+  
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Anton+SC:wght@400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Gambetta:ital,wght@0,400;1,400&family=Roboto:wght@100;300;400;600&display=swap" as="style" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton+SC:wght@400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Gambetta:ital,wght@0,400;1,400&family=Roboto:wght@100;300;400;600&display=swap"></noscript>
+
+<link rel="stylesheet" href="/index.css">
 <script type="importmap">
 {
   "imports": {
@@ -218,7 +226,6 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
   <div id="root"></div>

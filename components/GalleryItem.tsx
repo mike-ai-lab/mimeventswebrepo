@@ -18,7 +18,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ image, onImageClick, index })
   useLayoutEffect(() => {
     if (!itemRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context(() => { // GSAP Context for GalleryItem
       gsap.fromTo(
         itemRef.current,
         { opacity: 0, yPercent: 15 }, // Initial state for parallax: slightly down and transparent
@@ -34,7 +34,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ image, onImageClick, index })
           },
         }
       );
-    }, itemRef);
+    }, itemRef); // scope context to itemRef
 
     return () => ctx.revert();
   }, [index]); // index dependency if delay is needed, but for parallax, it's less common
@@ -51,7 +51,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ image, onImageClick, index })
     >
       {/* Image directly inside the root, which now controls aspect ratio and overflow */}
       <img
-        src={image.src}
+        src={image.src} // Use the potentially modified thumbnail src
         alt={image.alt} // Keep alt text for accessibility
         className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-110"
       />
